@@ -6,7 +6,7 @@ import { ContestEditComponent } from './contest-edit/contest-edit.component';
 
 const routes: Routes = [
   { path: '', component: ContestListComponent},
-  { path: 'single/:url', component: ContestSingleComponent},
+  { path: 'single/:token', component: ContestSingleComponent},
   { path: 'edit/:url', component: ContestEditComponent},
   { path: 'add', component: ContestEditComponent}
 ];

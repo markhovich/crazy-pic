@@ -1,0 +1,57 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import '~bootstrap/dist/css/bootstrap.min.css';
+
+/******************** FONTS **************************/
+
+@font-face{
+    font-family: "Roboto-Regular";
+    src: url("./assets/fonts/Roboto-Regular.ttf");
+}
+
+@font-face{
+    font-family: "Roboto-Light";
+    src: url("./assets/fonts/Roboto-Light.ttf");
+}
+
+@font-face{
+    font-family: "Ubuntu-Light";
+    src: url("./assets/fonts/Ubuntu-Light.ttf");
+}
+@font-face{
+    font-family: "Ubuntu-Regular";
+    src: url("./assets/fonts/Ubuntu-Regular.ttf");
+}
+
+
+/***************** VARIABLES **/
+
+
+/***************** STYLE ******/
+
+body{
+    font-family: "Roboto-Regular";
+}
+
+h1{
+    font-size: 4.3rem;
+    font-family: "Roboto-Light";
+    text-align: center;
+}
+
+nav{
+    font-family: "Ubuntu-Regular";
+}
+
+.infos{ 
+    background-color: rgb(230, 132, 132); 
+}
+
+.pictures{
+    background-color: rgb(252, 242, 102);
+}
+
+/********** BUTTONS / INPUT STYLE ***************/
+.btn, .form-control{
+    border-radius: 0em;
+}

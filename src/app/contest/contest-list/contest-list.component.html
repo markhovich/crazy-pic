@@ -1,8 +1,13 @@
 <h1>Liste des concours</h1>
 
-<div *ngFor="let contest of contests">
-    {{contest.name}}<br>
-    {{contest.author}}<br>
-    {{contest.url}}
-    <hr>
+<div *ngIf="contests">
+    <div *ngFor="let contest of contests">
+        <a [routerLink]="['single/', contest.token]">
+            {{contest.title}}<br>
+            {{contest.description}}<br>
+            {{contest.author}}<br>
+            {{contest.deadline | date: 'dd/MM/yyyy HH:mm'}}
+        </a>
+        <hr>
+    </div>
 </div>

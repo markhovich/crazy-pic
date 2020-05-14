@@ -9,6 +9,9 @@ const routes: Routes = [
   },
   { path: 'contest',
   loadChildren: './contest/contest.module#ContestModule',
+  },
+  { path: 'picture',
+  loadChildren: './picture/picture.module#PictureModule',
   }
 ];
 

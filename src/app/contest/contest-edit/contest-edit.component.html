@@ -1,63 +1,68 @@
-<h1>Création du concours</h1>
 
-<form >
-  <div class="form-group">
-    <label for="exampleInputPassword1">Votre nom</label>
-    <input type="text" class="form-control" id="exampleInputPassword1">
+
+<div class="infos">
+  <div class="header-body pt-4 pb-5">
+    <h1 class="text-center">Création du concours</h1>
   </div>
-  
-  <div class="form-group">
-    <label for="exampleInputEmail1">Votre adresse email</label>
-    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-    <small id="emailHelp" class="form-text text-muted">Votre adresse email ne sera jamais partagée</small>
+
+  <div class="container pt-4">
+    <h2>Etape 1 - Informations générales</h2>
+    <form class="form p-3" [formGroup]="contestForm" (ngSubmit)="onSubmit()">
+      <div class="row">
+        <div class="col-md-6 form-group">
+          <label for="author">Votre nom d'organisateur</label>
+          <input type="text" class="form-control" id="author" formControlName="author"
+          [ngClass]="{ 'is-invalid': submitted && f.author.errors }" />
+          <div *ngIf="submitted && f.author.errors" class="invalid-feedback">
+            <div *ngIf="f.author.errors.required">Renseignez votre pseudo</div>
+          </div>
+        </div>
+        
+        <div class="col-md-6 form-group">
+          <label for="title">Le titre du concours</label>
+          <input type="text" class="form-control" id="title" formControlName="title"
+          [ngClass]="{ 'is-invalid': submitted && f.title.errors }" />
+          <div *ngIf="submitted && f.title.errors" class="invalid-feedback">
+            <div *ngIf="f.title.errors.required">Renseignez le titre de votre concours</div>
+          </div>
+        </div>
+        
+        <div class="col-md-6 form-group">
+          <label for="description">Une description et règles à respecter</label>
+          <input type="text" class="form-control" id="descripiton" formControlName="description"/>
+          
+        </div>
+        
+        <div class="col-md-3 form-group">
+          <label for="deadline">La date de clôture</label>
+          <input type="date" class="form-control" id="deadline" formControlName="deadline"
+          [ngClass]="{ 'is-invalid': submitted && f.deadline.errors }" />
+          <div *ngIf="submitted && f.deadline.errors" class="invalid-feedback">
+            <div *ngIf="f.deadline.errors.required">Indiquez une date de fin du concours</div>
+          </div>
+        </div>
+        
+      </div>
+      
+      <button class="btn btn-primary">Suivant</button>
+      
+    </form>
   </div>
-  
-  <div class="form-group">
-    <label for="exampleInputPassword1">Le titre du concours</label>
-    <input type="text" class="form-control" id="exampleInputPassword1">
+</div>
+
+<div class="pictures">
+  <div class="container pt-4" *ngIf="contest">
+    <h2>Etape 2 - Chargez les photos</h2>
+    <div id="pictures" class="row">
+      <app-picture-edit [contest]="contest"></app-picture-edit>
+      <app-picture-edit [contest]="contest"></app-picture-edit>
+      <app-picture-edit [contest]="contest"></app-picture-edit>
+    </div>
+    <button class="btn btn-secondary mt-3" (click)="addPicture()">Ajouter une autre photo</button>  
+    <hr>
+    Avant de cliquer sur "Terminer" vérifiez bien que vous avez soumis toutes vos photos<br>
+    <button class="btn btn-primary my-3" [routerLink]="['/contest/single', contest.token]">Terminer</button>
   </div>
-  
-  <div class="row">
-    <div class="col-md-3 form-group">
-      <label class="image-upload-container btn btn-bwm">
-        <span>Selectionnez un fichier image</span>
-        <input #imageInput
-        type="file" class="form-control"
-        accept="image/*"
-        (change)="processFile(imageInput)">
-      </label>
-    </div>
-    
-    <div class="col-md-3 form-group">
-      <label class="image-upload-container btn btn-bwm">
-        <span>Selectionnez un fichier image</span>
-        <input #imageInput
-        type="file" class="form-control"
-        accept="image/*"
-        (change)="processFile(imageInput)">
-      </label>
-    </div>
-    <div class="col-md-3 form-group">
-      <label class="image-upload-container btn btn-bwm">
-        <span>Selectionnez un fichier image</span>
-        <input #imageInput
-        type="file" class="form-control"
-        accept="image/*"
-        (change)="processFile(imageInput)">
-      </label>
-    </div>
-    
-    <div class="col-md-3 form-group">
-      <label class="image-upload-container btn btn-bwm">
-        <span>Selectionnez un fichier image</span>
-        <input #imageInput
-        type="file" class="form-control"
-        accept="image/*"
-        (change)="processFile(imageInput)">
-      </label>
-    </div>
-  </div>
-  
-  
-  <button class="btn btn-primary">Valider</button>
-</form>
+</div>
+
+

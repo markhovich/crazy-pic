@@ -1,0 +1,34 @@
+<form [formGroup]="pictureForm" (ngSubmit)="onSubmit()">
+    <div class="col-md-12 mb-5">
+            <div class="form-group">
+                <label class="image-upload-container btn btn-bwm">
+                    <span>Selectionnez un fichier image</span>
+                </label>
+                <input class="form-control" type="file" name="image" (change)="selectFile($event)">
+                <div>{{message}}</div>
+            </div>
+            
+            <div class="form-group">
+                <label for="photograph">
+                    Nom
+                </label>
+                <input class="form-control" type="text" formControlName="name" name="name">
+            </div>
+
+            <div class="form-group">
+                <label for="photograph">
+                    Photographe
+                </label>
+                <input class="form-control" type="text" formControlName="photograph" name="photograph">
+            </div>
+
+            <div class="form-group">
+                <label for="comment">
+                    Commentaire (optionnel)
+                </label>
+                <textarea class="form-control" type="text" formControlName="comment" name="comment"></textarea>
+            </div>
+        </div>
+
+    <button class="btn btn-primary">Soumettre</button>
+</form>

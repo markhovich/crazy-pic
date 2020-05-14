@@ -8,6 +8,8 @@ import { ContestModule } from './contest/contest.module';
 import { HomeModule } from './home/home/home.module';
 import { HeaderComponent } from './templates/header/header.component';
 import { FooterComponent } from './templates/footer/footer.component';
+import { Globals } from './shared/_helpers/globals';
+import { PictureModule } from './picture/picture.module';
 
 @NgModule({
   declarations: [
@@ -19,10 +21,11 @@ import { FooterComponent } from './templates/footer/footer.component';
     BrowserModule,
     AppRoutingModule,
     ContestModule,
+    PictureModule,
     HomeModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [Globals],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

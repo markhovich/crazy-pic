@@ -1,0 +1,19 @@
+<img class="card-img-top" [src]="imageToShow" alt="Image"><br>
+
+<div class="card-body">
+    <div class="card-inner-body">
+        <h5 class="card-title bg-light pl-2"><small>réalisée par</small> {{picture.photograph}}</h5>
+        <p class="card-text">
+            {{picture.comment}}
+        </p>
+        
+    </div>
+    <div class="row card-buttons">
+        <div class="btn btn-info">{{picture.note}}</div>
+        <div class="ml-3" *ngIf="!voted && !closed">
+            <button class="btn btn-success" (click)="upVote(picture.id)" ><img src="./assets/thumb-up.png" alt="+1"></button>
+            <button class="btn btn-danger" (click)="downVote(picture.id)" ><img src="./assets/thumb-down.png" alt="-1"></button>
+        </div>
+        
+    </div>
+</div>

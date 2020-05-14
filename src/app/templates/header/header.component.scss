@@ -1,0 +1,14 @@
+nav{
+    z-index: 1;
+}
+
+.navbar{
+    position: absolute;
+    left: 1.5rem;
+    background-color: transparent;
+}
+
+nav a{
+    color: #161616;
+    z-index: 2;
+}
