@@ -44,5 +44,4 @@ export class ContestSingleComponent implements OnInit {
     return false;
   }
 
-
 }

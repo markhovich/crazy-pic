@@ -11,62 +11,64 @@ import { Contest } from 'src/app/shared/_model/Contest';
   styleUrls: ['./picture-edit.component.scss']
 })
 export class PictureEditComponent implements OnInit {
-
+  
   @Input() contest: Contest;
-
+  
   submitted: boolean = false;
   pictureForm: FormGroup;
   selectedFile: File;
   message: string;
-
+  
   constructor(private ps: PictureService,
-              private formBuilder: FormBuilder,
-              private router: Router) { }
-
-  ngOnInit(): void {
-    console.log(this.contest);
-    this.pictureForm = this.formBuilder.group({
-      name: '',
-      photograph: '',
-      comment: '',
-      image: ''
-    })
-  }
-
-  get f(){ return this.pictureForm.controls; }
+    private formBuilder: FormBuilder,
+    private router: Router) { }
     
-  selectFile(event){
-    this.selectedFile = event.target.files[0];
-    this.pictureForm.get('image').setValue(this.selectedFile);
-  }
-
-  onSubmit(){
-    this.submitted = true;
-
-    if(this.pictureForm.invalid){
-      return;
+    ngOnInit(): void {
+      console.log(this.contest);
+      this.pictureForm = this.formBuilder.group({
+        name: '',
+        photograph: '',
+        comment: '',
+        image: ''
+      })
     }
-    var formValues = this.pictureForm.value;
-
-    this.ps.save(this.pictureForm.get('image').value, this.contest.id, formValues.name, formValues.comment, formValues.photograph).subscribe(
-      event => {
-        console.log('success');
-
-        if(event instanceof HttpResponse){
-          this.message = event.body.message;
-          console.log(this.message);
-        }
-
-        //this.goToSingle();
-      },
-      err => {
-        this.message = 'L\'image n\'a pas été chargée correctement';
-        console.log(err)
+    
+    get f(){ return this.pictureForm.controls; }
+    
+    selectFile(event){
+      this.selectedFile = event.target.files[0];
+      this.pictureForm.get('image').setValue(this.selectedFile);
+    }
+    
+    onSubmit(){
+      this.submitted = true;
+      
+      if(this.pictureForm.invalid){
+        return;
       }
-    );
-  }
-
-  goToSingle(){
-    this.router.navigate(['/contest/single/' + this.contest.token])
-  }
-}
+      var formValues = this.pictureForm.value;
+      
+      this.ps.save(this.pictureForm.get('image').value, this.contest.id, formValues.name, formValues.comment, formValues.photograph).subscribe(
+        event => {
+          console.log('success');
+          
+          if(event instanceof HttpResponse){
+            this.message = event.body.message;
+            console.log(this.message);
+          }
+          
+          const form = document.getElementsByTagName('form');
+          form[1].reset();
+          //this.goToSingle();
+        },
+        err => {
+          this.message = 'L\'image n\'a pas été chargée correctement';
+          console.log(err)
+        }
+        );
+      }
+      
+      goToSingle(){
+        this.router.navigate(['/contest/single/' + this.contest.token])
+      }
+    }

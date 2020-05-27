@@ -55,10 +55,7 @@
     <h2>Etape 2 - Chargez les photos</h2>
     <div id="pictures" class="row">
       <app-picture-edit [contest]="contest"></app-picture-edit>
-      <app-picture-edit [contest]="contest"></app-picture-edit>
-      <app-picture-edit [contest]="contest"></app-picture-edit>
     </div>
-    <button class="btn btn-secondary mt-3" (click)="addPicture()">Ajouter une autre photo</button>  
     <hr>
     Avant de cliquer sur "Terminer" vérifiez bien que vous avez soumis toutes vos photos<br>
     <button class="btn btn-primary my-3" [routerLink]="['/contest/single', contest.token]">Terminer</button>

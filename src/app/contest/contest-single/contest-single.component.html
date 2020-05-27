@@ -30,8 +30,8 @@
                 </p>
                 
                 <div class="row">
-                    <div class="col-md-4" *ngFor="let picture of contest.pictures">
-                        <app-picture-single [picture]="picture" [token]="contest.token" [closed]="closed"></app-picture-single>        
+                    <div class="col-md-4" *ngFor="let picture of contest.pictures; let i = index">
+                        <app-picture-single [index]="i" [picture]="picture" [token]="contest.token" [closed]="closed"></app-picture-single>        
                     </div>
                 </div>    
             </div>

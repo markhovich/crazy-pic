@@ -16,6 +16,7 @@ export class PictureSingleComponent implements OnInit {
   @Input() token: string;
   @Input() picture: Picture;
   @Input() closed: boolean;
+  @Input() index;
 
   cookie: string;
   imageToShow: any;
@@ -29,10 +30,8 @@ export class PictureSingleComponent implements OnInit {
               private cookieService: CookieService) { }
 
   ngOnInit(): void {
-    console.log(this.closed);
     this.picUpload = this.fs.getFile(this.picture.id).subscribe(
       res => {
-        console.log(res);
         this.createImageFromBlob(res);
       }, err => {
         console.error(err);
@@ -44,6 +43,11 @@ export class PictureSingleComponent implements OnInit {
     if(this.cookieService.get(this.cookie)){
       this.voted = true;
     }
+    console.log(this.index);
+
+    const image = document.getElementById(this.index);
+    image.addEventListener('click', () => {
+    })
   }
 
   createImageFromBlob(image: Blob){
