@@ -1,9 +1,10 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output } from '@angular/core';
 import { PictureService } from 'src/app/shared/_services/picture/picture.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { HttpResponse } from '@angular/common/http';
 import { Contest } from 'src/app/shared/_model/Contest';
+import { EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-picture-edit',
@@ -15,22 +16,24 @@ export class PictureEditComponent implements OnInit {
   @Input() contest: Contest;
   
   submitted: boolean = false;
+  success: boolean = false;
   pictureForm: FormGroup;
   selectedFile: File;
   message: string;
+  @Output() valid = new EventEmitter<boolean>();
   
   constructor(private ps: PictureService,
     private formBuilder: FormBuilder,
     private router: Router) { }
     
     ngOnInit(): void {
-      console.log(this.contest);
       this.pictureForm = this.formBuilder.group({
         name: '',
         photograph: '',
         comment: '',
         image: ''
       })
+      this.valid.emit(false);
     }
     
     get f(){ return this.pictureForm.controls; }
@@ -42,33 +45,23 @@ export class PictureEditComponent implements OnInit {
     
     onSubmit(){
       this.submitted = true;
-      
       if(this.pictureForm.invalid){
         return;
       }
       var formValues = this.pictureForm.value;
       
       this.ps.save(this.pictureForm.get('image').value, this.contest.id, formValues.name, formValues.comment, formValues.photograph).subscribe(
-        event => {
-          console.log('success');
-          
-          if(event instanceof HttpResponse){
-            this.message = event.body.message;
-            console.log(this.message);
-          }
-          
+        event => {  
           const form = document.getElementsByTagName('form');
           form[1].reset();
-          //this.goToSingle();
+          this.success = true;
+          this.valid.emit(true);
         },
         err => {
-          this.message = 'L\'image n\'a pas été chargée correctement';
           console.log(err)
+          this.success = false;
         }
         );
       }
       
-      goToSingle(){
-        this.router.navigate(['/contest/single/' + this.contest.token])
-      }
     }

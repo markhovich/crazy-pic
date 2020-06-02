@@ -44,7 +44,7 @@
         
       </div>
       
-      <button class="btn btn-primary">Suivant</button>
+      <button class="btn btn-primary btn-block col-md-6 mx-auto">{{ buttonLabel }}</button>
       
     </form>
   </div>
@@ -53,12 +53,13 @@
 <div class="pictures">
   <div class="container pt-4" *ngIf="contest">
     <h2>Etape 2 - Chargez les photos</h2>
-    <div id="pictures" class="row">
-      <app-picture-edit [contest]="contest"></app-picture-edit>
+    <div id="pictures" class="col-md-8 mx-auto">
+      <app-picture-edit [contest]="contest" (valid)="onValid($event)"></app-picture-edit>
     </div>
     <hr>
     Avant de cliquer sur "Terminer" vérifiez bien que vous avez soumis toutes vos photos<br>
-    <button class="btn btn-primary my-3" [routerLink]="['/contest/single', contest.token]">Terminer</button>
+    <button class="btn btn-primary my-3" [routerLink]="['/contest/single', contest.token]"
+    [disabled]="!valid">Terminer</button>
   </div>
 </div>
 

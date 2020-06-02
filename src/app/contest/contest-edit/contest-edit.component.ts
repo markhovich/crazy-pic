@@ -4,6 +4,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Contest } from 'src/app/shared/_model/Contest';
 import { FileService } from 'src/app/shared/_services/file/file.service';
+import { dateValidator } from "src/app/shared/_helpers/date-validator";
 
 @Component({
   selector: 'app-contest-edit',
@@ -13,10 +14,12 @@ import { FileService } from 'src/app/shared/_services/file/file.service';
 export class ContestEditComponent implements OnInit {
   
   submitted: boolean = false;
+  buttonLabel: string = 'Suivant';
+  
   contestForm: FormGroup;
   contest: Contest;
-  
-  disabled = 'disabled';
+  valid: boolean = false;
+
   message: string;
   
   constructor(private cs: ContestService,
@@ -26,19 +29,22 @@ export class ContestEditComponent implements OnInit {
     
     ngOnInit(): void {
       this.initForm();
-      
     }
     
     initForm(){
       this.contestForm = this.formBuilder.group({
         author: ['Arthur', Validators.required],
         title: ['Nature Auvergne', Validators.required],
-        description: ['random'],
-        deadline: ['2020-12-12', Validators.required],
+        description: ['random description'],
+        deadline: ['2020-06-12', [Validators.required, dateValidator ]],
         token: [this.tokenGenerator(24)]
       })
     }
     
+    onValid(event){
+      this.valid = event;
+    }
+
     get f(){ return this.contestForm.controls; }
     
     onSubmit(){
@@ -46,12 +52,19 @@ export class ContestEditComponent implements OnInit {
       if(this.contestForm.invalid){
         return;
       }
-      
+      this.buttonLabel = 'Modifier';
+
       var formValues = this.contestForm.value;
-      
-      var contest = new Contest(formValues.title, formValues.description, formValues.author, formValues.token, formValues.deadline);
-      console.log(contest);
-      this.cs.save(contest, -1).subscribe(
+
+      let id;
+      if(!this.contest){
+        this.contest = new Contest(formValues.title, formValues.description, formValues.author, formValues.token, formValues.deadline);
+        id = -1
+      } else {
+        id = this.contest.id;
+      }    
+      console.log(this.contest);
+      this.cs.save(this.contest, id).subscribe(
         res => {
           this.cs.getByToken(formValues.token).subscribe( (res: Contest) => {
             console.log(res);
@@ -82,56 +95,6 @@ export class ContestEditComponent implements OnInit {
         pictures.appendChild(newPictureArea);
 
         console.log(newPictureArea)
-        /*
-        newPictureArea.classList.add('col-md-4', 'form-group');
-    
-        //File
-        var newFileFormGroup = document.createElement('div');
-        newFileFormGroup.classList.add('form-group');
-        newPictureArea.appendChild(newFileFormGroup);
-    
-        var newFileLabel = document.createElement('label');
-        newFileLabel.classList.add('image-upload-container', 'btn', 'btn-bwn');
-        newFileLabel.textContent = 'Sélectionnez un fichier image';
-        newFileFormGroup.appendChild(newFileLabel);
-    
-        var newFileInput = document.createElement('input');
-        newFileInput.className = 'form-control';
-        newFileInput.setAttribute('type', 'file');
-        newFileFormGroup.appendChild(newFileInput);
-    
-        //Photograph
-        var newPhotoFormGroup = document.createElement('div');
-        newPhotoFormGroup.classList.add('form-group');
-        newPictureArea.appendChild(newPhotoFormGroup);
-    
-        var newPhotoLabel = document.createElement('label');
-        newPhotoLabel.textContent = 'Photographe';
-        newPhotoFormGroup.appendChild(newPhotoLabel);
-    
-        var newPhotoInput = document.createElement('input');
-        newPhotoInput.className = 'form-control';
-        newPhotoInput.setAttribute('type', 'text');
-        newPhotoFormGroup.appendChild(newPhotoInput);
-    
-        //Comment
-        var newCommentFormGroup = document.createElement('div');
-        newCommentFormGroup.classList.add('form-group');
-        newPictureArea.appendChild(newCommentFormGroup);
-    
-        var newCommentLabel = document.createElement('label');
-        newCommentLabel.textContent = 'Commentaire';
-        newCommentFormGroup.appendChild(newCommentLabel);
-    
-        var newCommentInput = document.createElement('textarea');
-        newCommentInput.className = 'form-control';
-        newCommentInput.setAttribute('type', 'text');
-        newCommentFormGroup.appendChild(newCommentInput);
-
-        //Button
-        var submitButton = document.createElement('button');
-        submitButton.className = 'btn btn-primary';
-        submitButton.innerHTML = 'Soumettre';
-        newPictureArea.appendChild(submitButton);*/
+        
       }
     }

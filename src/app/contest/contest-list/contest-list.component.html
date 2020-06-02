@@ -1,13 +1,42 @@
-<h1>Liste des concours</h1>
+<div class="infos pb-3">
+    <h1 class="py-5 mb-0">Liste des concours</h1>
+    <div class="container mx-auto">
+        <form class="" #f="ngForm" (ngSubmit)="onSubmit(f)" novalidate>
+            <legend>{{ nbContests }} Concours</legend>
+            <div class="custom-control custom-radio custom-control-inline">
+                <input class="custom-control-input" type="radio" id="all" name="state" value="all" [(ngModel)]="state">
+                <label class="custom-control-label" for="all">Tous</label>
+              </div>
+            <div class="custom-control custom-radio custom-control-inline">
+                <input class="custom-control-input" type="radio" id="pending" name="state" value="pending" [(ngModel)]="state">
+                <label class="custom-control-label" for="pending">En cours</label>
+              </div>
+              <div class="custom-control custom-radio custom-control-inline">
+                <input class="custom-control-input" type="radio" id="over" value="over" name="state" [(ngModel)]="state">
+                <label class="custom-control-label" for="over">Terminé</label>
+              </div>
+            
+            <button class="btn btn-primary">Afficher</button>
+        </form>
+    </div>
+</div>
 
-<div *ngIf="contests">
-    <div *ngFor="let contest of contests">
-        <a [routerLink]="['single/', contest.token]">
-            {{contest.title}}<br>
-            {{contest.description}}<br>
-            {{contest.author}}<br>
-            {{contest.deadline | date: 'dd/MM/yyyy HH:mm'}}
-        </a>
-        <hr>
+<div class="main-container pt-5 pictures">
+    <div class="container row mx-auto" *ngIf="contests">
+        <div class="col-md-4 row" *ngFor="let contest of contests">
+            <div class="col-md-6">
+                <img class="img-thumbnail" [src]="image" alt="image">
+            </div>
+            <div class="col-md-6">
+                <a [routerLink]="['single/', contest.token]">
+                    {{contest.title}}<br>
+                    {{contest.description}}<br>
+                    par {{contest.author}}<br>
+                    fin le {{contest.deadline | date: 'dd/MM/yyyy'}}
+                </a>
+                <hr>
+            </div>
+            
+        </div>
     </div>
 </div>

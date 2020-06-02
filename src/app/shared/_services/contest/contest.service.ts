@@ -18,7 +18,15 @@ export class ContestService {
   }
 
   get(id: number){
-    return this.http.get(this.CONTEST_API + id)
+    return this.http.get(this.CONTEST_API + id);
+  }
+
+  getOver(){
+    return this.http.get(this.CONTEST_API + 'over');
+  }
+
+  getPending(){
+    return this.http.get(this.CONTEST_API + 'pending')
   }
 
   getByToken(token: string){
@@ -26,6 +34,8 @@ export class ContestService {
   }
 
   save(contest: Contest, id: number){
+    console.log(contest)
+    console.log(id)
     if(id>0){
       return this.http.put(this.CONTEST_API + id, contest);
     }

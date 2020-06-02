@@ -34,40 +34,13 @@
     max-width: 22rem;
     width: auto;
     margin: auto;
-
-    transition: transform 0.25s ease;
-    cursor: zoom-in;
+    border-radius: 0;
+    transition: 0.35s ease;
+    filter: sepia(80%);
 }
 
 .card-img-top:hover{
-    opacity: 0.8; 
-}
-
-.zoom-check{
-    display: none;
-}
-
-.zoom-check:checked ~ label{
-    position: absolute;
-
-}
-
-.zoomed {
-    cursor: zoom-out;
-    position: absolute;
-    left: 5rem;
-    width: 600px;
+    transform: scale(1.6);
+    filter: sepia(0);
     z-index: 2;
-  }
-  
-.zoom-check:checked ~ label > .card-img-top {
-    transform: scale(2);
-    cursor: zoom-out;
-    position: absolute;
-    left: 5rem;
-    z-index: 2;
-  }
-
-.zoom-check:checked ~ label > .card-img-top:hover{
-    opacity: 1; 
 }

@@ -36,6 +36,9 @@ body{
 h1{
     font-size: 4.3rem;
     font-family: "Roboto-Light";
+}
+
+h1, h2{
     text-align: center;
 }
 
@@ -52,6 +55,6 @@ nav{
 }
 
 /********** BUTTONS / INPUT STYLE ***************/
-.btn, .form-control{
+.btn, .form-control, .alert{
     border-radius: 0em;
 }

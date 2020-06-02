@@ -1,3 +1,18 @@
 .infos a{
     color: rgb(49, 49, 49);
 }
+
+.picture-container{
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+
+    background-color: rgba(0, 0, 0, 0.747);
+}
+
+.img-large{
+    max-width: 45rem;
+    max-height: 50rem;
+}

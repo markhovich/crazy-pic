@@ -5,6 +5,7 @@ import { FileService } from 'src/app/shared/_services/file/file.service';
 import { Subscription, Observable } from 'rxjs';
 import { DomSanitizer } from '@angular/platform-browser';
 import { CookieService } from 'ngx-cookie-service';
+import {ContestService} from "../../shared/_services/contest/contest.service";
 
 @Component({
   selector: 'app-picture-single',
@@ -16,7 +17,9 @@ export class PictureSingleComponent implements OnInit {
   @Input() token: string;
   @Input() picture: Picture;
   @Input() closed: boolean;
-  @Input() index;
+  @Input() index: string;
+  idPic;
+  idContainer;
 
   cookie: string;
   imageToShow: any;
@@ -43,11 +46,7 @@ export class PictureSingleComponent implements OnInit {
     if(this.cookieService.get(this.cookie)){
       this.voted = true;
     }
-    console.log(this.index);
-
-    const image = document.getElementById(this.index);
-    image.addEventListener('click', () => {
-    })
+    
   }
 
   createImageFromBlob(image: Blob){
@@ -59,7 +58,7 @@ export class PictureSingleComponent implements OnInit {
     if (image) {
       reader.readAsDataURL(image);
     }
-    
+
     this.imageToShow = this.domSanitizer.bypassSecurityTrustUrl('data:image/jpeg;base64,' + reader.result);
     }
 

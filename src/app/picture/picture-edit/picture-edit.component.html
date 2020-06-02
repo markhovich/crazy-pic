@@ -2,22 +2,24 @@
     <div class="col-md-12 mb-5">
             <div class="form-group">
                 <label class="image-upload-container btn btn-bwm">
-                    <span>Selectionnez un fichier image</span>
+                    <span>Selectionnez un fichier image (obligatoire)</span>
                 </label>
                 <input class="form-control" type="file" name="image" (change)="selectFile($event)">
-                <div>{{message}}</div>
+                <div *ngIf="submitted && !success" class="alert alert-danger mt-3">
+                    L'image n'a pas été chargée correctement
+                </div>
             </div>
             
             <div class="form-group">
                 <label for="photograph">
-                    Nom
+                    Nom (optionnel)
                 </label>
                 <input class="form-control" type="text" formControlName="name" name="name">
             </div>
 
             <div class="form-group">
                 <label for="photograph">
-                    Photographe
+                    Photographe (optionnel)
                 </label>
                 <input class="form-control" type="text" formControlName="photograph" name="photograph">
             </div>
@@ -28,7 +30,12 @@
                 </label>
                 <textarea class="form-control" type="text" formControlName="comment" name="comment"></textarea>
             </div>
+            <button class="btn btn-primary btn-block col-md-6 mx-auto">Soumettre la photo</button>
+
         </div>
 
-    <button class="btn btn-primary">Soumettre</button>
+    <div *ngIf="submitted && success" class="alert alert-success mt-3">
+        L'image a bien été chargée<br>
+        Vous pouvez choisir la suivante ou valider le concours
+    </div>
 </form>
