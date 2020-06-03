@@ -34,8 +34,7 @@ export class ContestService {
   }
 
   save(contest: Contest, id: number){
-    console.log(contest)
-    console.log(id)
+
     if(id>0){
       return this.http.put(this.CONTEST_API + id, contest);
     }

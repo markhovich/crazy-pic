@@ -33,10 +33,10 @@ export class ContestEditComponent implements OnInit {
     
     initForm(){
       this.contestForm = this.formBuilder.group({
-        author: ['Arthur', Validators.required],
-        title: ['Nature Auvergne', Validators.required],
-        description: ['random description'],
-        deadline: ['2020-06-12', [Validators.required, dateValidator ]],
+        author: ['', Validators.required],
+        title: ['', Validators.required],
+        description: [''],
+        deadline: ['', [Validators.required, dateValidator ]],
         token: [this.tokenGenerator(24)]
       })
     }
@@ -58,11 +58,12 @@ export class ContestEditComponent implements OnInit {
 
       let id;
       if(!this.contest){
-        this.contest = new Contest(formValues.title, formValues.description, formValues.author, formValues.token, formValues.deadline);
         id = -1
       } else {
         id = this.contest.id;
       }    
+      this.contest = new Contest(formValues.title, formValues.description, formValues.author, formValues.token, formValues.deadline);
+
       console.log(this.contest);
       this.cs.save(this.contest, id).subscribe(
         res => {

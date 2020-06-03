@@ -3,6 +3,7 @@ import { ContestService } from 'src/app/shared/_services/contest/contest.service
 import { Subscription } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { Contest } from 'src/app/shared/_model/Contest';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-contest-single',
@@ -15,6 +16,7 @@ export class ContestSingleComponent implements OnInit {
   url: string = 'http://localhost:4200/contest/single/';
   contestSub: Subscription;
   closed: boolean = false;
+  time: number;
 
   constructor(private cs: ContestService,
               private route: ActivatedRoute) { }
@@ -28,12 +30,15 @@ export class ContestSingleComponent implements OnInit {
             this.contest = res;
             this.url += token;
             this.closed = this.isClosed(this.contest.deadline);
-            
-            console.log(res);
+            this.getTime(this.contest.deadline);
           }
         )
       }
     })
+  }
+
+  getTime(deadline){
+    this.time = Math.floor((new Date(deadline).getTime() - new Date().getTime()) / 3600000 / 24);
   }
 
   isClosed(deadline): boolean{

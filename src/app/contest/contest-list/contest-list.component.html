@@ -29,8 +29,8 @@
             </div>
             <div class="col-md-6">
                 <a [routerLink]="['single/', contest.token]">
-                    {{contest.title}}<br>
-                    {{contest.description}}<br>
+                    <h5>{{contest.title}}</h5>
+                    <small>{{contest.description}}</small><br>
                     par {{contest.author}}<br>
                     fin le {{contest.deadline | date: 'dd/MM/yyyy'}}
                 </a>
