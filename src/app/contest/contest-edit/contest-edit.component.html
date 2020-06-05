@@ -55,7 +55,8 @@
     <h2>Etape 2 - Chargez les photos</h2>
     <div id="pictures" class="col-md-8 mx-auto">
       <app-picture-edit [contest]="contest" (valid)="onValid($event)"></app-picture-edit>
-    </div>
+    </div>   
+
     <hr>
     Avant de cliquer sur "Terminer" vérifiez bien que vous avez soumis toutes vos photos<br>
     <button class="btn btn-primary my-3" [routerLink]="['/contest/single', contest.token]"

@@ -34,6 +34,10 @@
 
         </div>
 
+    <div *ngIf="nbPic>0">
+        Vous avez uploadé {{ nbPic }} photos
+    </div>
+    
     <div *ngIf="submitted && success" class="alert alert-success mt-3">
         L'image a bien été chargée<br>
         Vous pouvez choisir la suivante ou valider le concours

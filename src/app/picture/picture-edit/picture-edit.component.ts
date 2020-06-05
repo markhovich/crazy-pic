@@ -17,20 +17,22 @@ export class PictureEditComponent implements OnInit {
   
   submitted: boolean = false;
   success: boolean = false;
+
   pictureForm: FormGroup;
   selectedFile: File;
-  message: string;
   @Output() valid = new EventEmitter<boolean>();
   
+  message: string;
+  nbPic: number = 0;
+
   constructor(private ps: PictureService,
-    private formBuilder: FormBuilder,
-    private router: Router) { }
+    private formBuilder: FormBuilder) { }
     
     ngOnInit(): void {
       this.pictureForm = this.formBuilder.group({
-        name: '',
-        photograph: '',
-        comment: '',
+        name: ' ',
+        photograph: ' ',
+        comment: ' ',
         image: ''
       })
       this.valid.emit(false);
@@ -51,11 +53,12 @@ export class PictureEditComponent implements OnInit {
       var formValues = this.pictureForm.value;
       
       this.ps.save(this.pictureForm.get('image').value, this.contest.id, formValues.name, formValues.comment, formValues.photograph).subscribe(
-        event => {  
+        res => {  
           const form = document.getElementsByTagName('form');
           form[1].reset();
           this.success = true;
           this.valid.emit(true);
+          this.nbPic++;
         },
         err => {
           console.log(err)
